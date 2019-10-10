@@ -88,14 +88,31 @@ public final class RomanNumber extends Number {
   public static RomanNumber valueOf(int value) {
     return new RomanNumber(value);
   }
+  
+  public static void valueOf(double value) {
+    throw new IllegalArgumentException();
+  }
+
 
   private static int fromRoman(String romanValue) {
-    // TODO
-    return 0;
+    	int resultat = 0;
+    	int index = 0;
+    	for (Map.Entry<String, Integer> entry : SYMBOLS.entrySet()) {
+    		while(){
+    			//resultat += entry.getValue();
+    			//index += entry.getKey().length();
+    			}
+    	}
+    return resultat;
   }
 
   private static String toRoman(int value) {
-    // TODO
-    return "";
+    String resultat = "";
+    for (Map.Entry<String, Integer> entry : SYMBOLS.entrySet()) {
+    	while(){
+    		
+    	}
+    }
+    return resultat;
   }
 }

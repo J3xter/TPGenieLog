@@ -70,10 +70,20 @@ public class RomanNumberTest {
   }
 
   // String -> RomanNumber
+  //Donner les bonnes valeurs arabes pour des valeurs romaines connues?
   @Test
   public void fromRomanKnownValues() {
     for (Map.Entry<Integer, String> v : KNOWN_VALUES.entrySet()) {
       assertThat(RomanNumber.valueOf(v.getValue()).intValue(), is(v.getKey()));
+    }
+  }
+  
+
+  //Donner les bonnes valeurs romaines pour des valeurs décimales connues.
+@Test
+public void fromArabKnownValues() {
+    for (Map.Entry<Integer, String> v : KNOWN_VALUES.entrySet()) { 
+    assertThat(v.getKey(),is(RomanNumber.valueOf(v.getValue()).intValue()));
     }
   }
 
@@ -82,5 +92,53 @@ public class RomanNumberTest {
   public void toRomanZero() {
     RomanNumber.valueOf(0);
   }
+  //junit.org class assert
+  
 
+
+  //Échouer (lever une exception) pour des valeurs négatives
+  @Test(expected = IllegalArgumentException.class)
+  public void negNumber(){
+  	RomanNumber.valueOf(-1);
+  }
+  
+  //Échouer pour des valeurs non entières
+ @Test(expected = IllegalArgumentException.class)
+  public void nonEntierNumber(){
+  	RomanNumber.valueOf(2.25);
+  }
+  
+ //Échouer pour des valeurs en dehors de l’intervalle [1, 3999]
+ @Test(expected = IllegalArgumentException.class)
+  public void nonInterNumber(){
+  	RomanNumber.valueOf(4000);
+  }
+ //Échouer pour des valeurs avec trop de répétitions de symboles
+ @Test(expected = IllegalArgumentException.class)
+  public void repetNumber(){
+  	RomanNumber.valueOf("IIII");
+  }
+  //Échouer pour des valeurs avec des répétitions de paires
+  @Test(expected = IllegalArgumentException.class)
+  public void repetPaireNumber(){
+  	RomanNumber.valueOf("VV");
+  }
+ //Échouer pour des valeurs avec des antécédents incorrects
+@Test(expected = IllegalArgumentException.class)
+  public void antecedantNumber(){
+  	RomanNumber.valueOf("IC");
+  }
+	
+// toRoman retourne des capitales
+@Test
+  public void capitalNumber(){
+	RomanNumber.valueOf("II");
+  }
+
+//fromRoman échoue si on n’a pas que des capitales
+@Test(expected = IllegalArgumentException.class)
+  public void pasCapitalNumber(){
+	RomanNumber.valueOf("ii");
+  }
+  
 }
