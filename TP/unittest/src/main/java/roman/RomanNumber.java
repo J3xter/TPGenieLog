@@ -3,6 +3,7 @@ package roman;
 
 import java.util.LinkedHashMap;
 import java.util.regex.Pattern;
+import java.util.HashMap;
 
 public final class RomanNumber extends Number {
 
@@ -45,8 +46,7 @@ public final class RomanNumber extends Number {
    */
   @Override
   public double doubleValue() {
-    // TODO
-    return 0;
+    return fromRoman(String.valueOf(this.value));
   }
 
   /**
@@ -54,8 +54,7 @@ public final class RomanNumber extends Number {
    */
   @Override
   public float floatValue() {
-    // TODO
-    return 0;
+     return fromRoman(String.valueOf(this.value));
   }
 
   /**
@@ -63,8 +62,7 @@ public final class RomanNumber extends Number {
    */
   @Override
   public int intValue() {
-    // TODO
-    return 0;
+    return fromRoman(String.valueOf(this.value));
   }
 
   /**
@@ -72,8 +70,7 @@ public final class RomanNumber extends Number {
    */
   @Override
   public long longValue() {
-    // TODO
-    return 0;
+     return fromRoman(String.valueOf(this.value));
   }
 
   @Override
@@ -93,26 +90,55 @@ public final class RomanNumber extends Number {
     throw new IllegalArgumentException();
   }
 
+	 public static String SousChaine(String s, Integer index, Integer indexMax)
+  {
+	  if (indexMax-index==1) {
+		  return(s.substring(index));
+	  }
+	  else {
+		  return(s.substring(index,index+1));
+	  }
+  }
+  
+  
 
   private static int fromRoman(String romanValue) {
-    	int resultat = 0;
-    	int index = 0;
-    	for (Map.Entry<String, Integer> entry : SYMBOLS.entrySet()) {
-    		while(){
-    			//resultat += entry.getValue();
-    			//index += entry.getKey().length();
-    			}
-    	}
+    int resultat=0;
+    int index=0;
+    for (HashMap.Entry<String, Integer> entry : SYMBOLS.entrySet()) 
+    {
+        String symbole = entry.getKey();
+        Integer nombre = entry.getValue();
+        Integer longueur = symbole.length();
+        while(SousChaine(romanValue,index,longueur).compareTo(symbole)== 0)
+        {
+        	resultat = resultat + nombre;
+        	index = index+longueur;
+        }
+    }
+    if (index!=romanValue.length())
+	 {
+		 throw new IllegalArgumentException("L'ecriture en romain n'est pas possible");
+	 }
     return resultat;
   }
 
   private static String toRoman(int value) {
-    String resultat = "";
-    for (Map.Entry<String, Integer> entry : SYMBOLS.entrySet()) {
-    	while(){
-    		
-    	}
-    }
+	  String resultat = "";
+	  int n=value;
+	  if (n<=0 || n>3999)
+	  {
+		  throw new IllegalArgumentException("Le nombre n'est pas pris en charge");
+	  }
+	  for (HashMap.Entry<String, Integer> entry : SYMBOLS.entrySet()) {
+	        String symbole = entry.getKey();
+	        Integer nombre = entry.getValue();
+	        while(n>=nombre){
+	        	resultat = resultat + symbole;
+	        	n=n-nombre;
+	        }
+	    }
     return resultat;
   }
+  
 }

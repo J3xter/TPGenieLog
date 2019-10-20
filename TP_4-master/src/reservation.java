@@ -1,4 +1,5 @@
 import java.util.Date;
+import java.util.ArrayList;
 
 
 enum Etat{
@@ -13,36 +14,48 @@ public class reservation{
 	public Double id;
 	public Etat etat;
 
+	/*correspond aux relations 0..* */
+	public ArrayList <vol> vols;
+	public ArrayList <client> clients;
+	public ArrayList <passager> passagers;
 
-	public reservation(Date pdate, Double pid){
+	/*fonction pour créer une instance de reservation*/
+	public reservation(Date pdate, Double pid, ArrayList <vol> pvols, ArrayList <client> pclients, ArrayList <passager> ppassagers){
 		date = pdate;
 		id = pid;
 		etat = Etat.EN_ATTENTE;
+		vols.addAll(pvols);
+		clients.addAll(pclients);
+		passagers.addAll(ppassagers);
 
 	}
+
+	/*si la reservation est annulee on met son etat comme il le faut*/
 	public void annuler(){
 		if(getEtat() != Etat.ANNULEE){
 			setEtat(Etat.ANNULEE);
 		}
 		else{
-			System.out.println("la reservation est déjà annulee");}
+			System.out.println("la réservation est déjà annulée");}
 
 	}
 
+	/*meme idee que precedemment*/
 	public void confirmer(){
 		if(getEtat() == Etat.EN_ATTENTE){
 			setEtat(Etat.ANNULEE);
 		}
 		else{
-			System.out.println("la reservation est déjà annulee ou payee");}
+			System.out.println("la réservation est déjà annulee ou payeé");}
 	}
 
+	/*si la commande est payee on la met en tant que tel*/
 	public void payer(){
 		if(getEtat() == Etat.CONFIRMEE){
 			setEtat(Etat.PAYEE);		
 		}
 		else{
-			System.out.println("la reservation est déjà annulee ou payee");}
+			System.out.println("la réservation est déjà annulee ou payée");}
 	}
 
 	public Date getDate(){
